@@ -29,4 +29,8 @@
     <ProjectReference Include="..\CropSurvey.Model\CropSurvey.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\svg\" />
+  </ItemGroup>
+
 </Project>
