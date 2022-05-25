@@ -5,78 +5,73 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-floating">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                    <label asp-for="Input.Email" class="form-label"></label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-floating">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <label asp-for="Input.Password" class="form-label"></label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div>
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe" class="form-label">
-                            <input class="form-check-input" asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
+<div class="px-5 py-5 p-lg-0 bg-surface-secondary">
+    <div class="d-flex justify-content-center">
+        <div class="col-lg-5 col-xl-4 p-12 p-xl-20 position-fixed start-0 top-0 h-screen overflow-y-hidden bg-primary d-none d-lg-flex flex-column">
+            <a class="d-block h-10 text-white" asp-controller="Home" asp-action="Index">
+                kropaj.me
+            </a>
+            <div class="mt-32 mb-20">
+                <h1 class="ls-tight font-bolder display-6 text-white mb-5">
+                    Anketa<br />kropaj.me
+                </h1>
+                <p class="text-white text-opacity-80">
+                    Istraživanje uspješnosti<br /> automatskog izrezivanja fotografija
+                </p>
+            </div>
+            <!--<div class="w-56 h-56 bg-orange-500 rounded-circle position-absolute bottom-0 end-20 transform translate-y-1/3"></div>-->
+        </div>
+        <div class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg min-h-lg-screen d-flex flex-column justify-content-center py-lg-16 px-lg-20 position-relative h-screen">
+            <div class="row">
+                <div class="col-lg-10 col-md-9 col-xl-6 mx-auto ms-xl-0">
+                    <a class="d-block h-10" asp-controller="Home" asp-action="Index">
+                        ← idi na početnu stranicu
+                    </a>
+                    <div class="mt-10 mt-lg-5 mb-6 d-flex align-items-center d-lg-block">
+                        <h1 class="ls-tight font-bolder h2">
+                            Prijava
+                        </h1>
                     </div>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
+                    <div class="alert alert-primary mb-6" role="alert">
+                        Za ispunjavanje ankete potreban je korisnički račun. Ako ga nemate, <strong><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">registrirajte se</a></strong>.
                     </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <button class="btn btn-neutral w-full" type="submit" name="provider" value="@Model.ExternalLogins[0].Name">
+                                    <span class="icon icon-sm pe-2">
+                                        <img src="~/lib/svg/google.svg" />
+                                    </span>
+                                    @Model.ExternalLogins[0].DisplayName
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="py-5 text-center">
+                        <span class="text-xs text-uppercase font-semibold">ili</span>
+                    </div>
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-5">
+                            <label class="form-label" asp-for="Input.UserName" autocomplete="username" aria-required="true">Korisničko ime</label>
+                            <input class="form-control form-control-muted" asp-for="Input.UserName">
+                            <span class="text-danger" asp-validation-for="Input.UserName"></span>
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label" asp-for="Input.Password">Lozinka</label>
+                            <input class="form-control form-control-muted" asp-for="Input.Password" autocomplete="new-password">
+                            <span class="text-danger" asp-validation-for="Input.Password"></span>
+                        </div>
                         <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
+                            <button class="btn btn-primary w-full" id="registerSubmit" type="submit">
+                                Prijavi me
+                            </button>
                         </div>
                     </form>
-                }
-            }
-        </section>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
