@@ -51,10 +51,11 @@
                         <span class="text-xs text-uppercase font-semibold">ili</span>
                     </div>
                     <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mb-5">
-                            <label class="form-label" asp-for="Input.Email" autocomplete="username" aria-required="true">Email adresa</label>
-                            <input class="form-control form-control-muted" asp-for="Input.Email">
-                            <span class="text-danger" asp-validation-for="Input.Email"></span>
+                            <label class="form-label" asp-for="Input.UserName" autocomplete="username" aria-required="true">Korisničko ime</label>
+                            <input class="form-control form-control-muted" asp-for="Input.UserName">
+                            <span class="text-danger" asp-validation-for="Input.UserName"></span>
                         </div>
                         <div class="mb-5">
                             <label class="form-label" asp-for="Input.Password">Lozinka</label>

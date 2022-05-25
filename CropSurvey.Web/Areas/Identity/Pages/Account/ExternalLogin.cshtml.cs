@@ -81,11 +81,13 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            public string UserName { get; set; }
         }
-        
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
         public IActionResult OnPost(string provider, string returnUrl = null)
@@ -131,7 +133,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        UserName = info.Principal.FindFirstValue(ClaimTypes.Email)
                     };
                 }
                 return Page();
@@ -153,8 +155,11 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+                if (!String.IsNullOrWhiteSpace(Input.Email))
+                {
+                    await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                }
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -186,7 +191,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                foreach (var error in result.Errors)
+                foreach (var error in result.Errors.DistinctBy(e => e.Description))
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }

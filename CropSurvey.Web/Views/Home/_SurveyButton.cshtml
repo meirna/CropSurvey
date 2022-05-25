@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a href="#" class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8">
+        Ispuni anketu
+    </a>
+} else
+{
+    <a class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8" asp-area="Identity" asp-page="/Account/Register">
+        Ispuni anketu
+    </a>
+}

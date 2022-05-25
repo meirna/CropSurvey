@@ -1,6 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@{
+﻿@{
     ViewData["Title"] = "O autoru";
 }
 
@@ -27,17 +25,7 @@
                             Kontaktirati me možete na mpiberni1@tvz.hr
                         </p>
                         <div class="mx-n2 mt-10">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <a href="#" class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8">
-                                    Ispuni anketu
-                                </a>
-                            } else
-                            {
-                                <a class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8" asp-area="Identity" asp-page="/Account/Register">
-                                    Ispuni anketu
-                                </a>
-                            }
+                            <partial name="_SurveyButton" />
                         </div>
                     </div>
                 </div>

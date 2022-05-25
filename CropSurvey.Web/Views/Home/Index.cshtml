@@ -1,6 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@{
+﻿@{
     ViewData["Title"] = "Home";
 }
 
@@ -21,17 +19,7 @@
                             Istraživanje uspješnosti automatskog izrezivanja fotografija
                         </p>
                         <div class="mx-n2">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <a href="#" class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8">
-                                    Ispuni anketu
-                                </a>
-                            } else
-                            {
-                                <a class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8" asp-area="Identity" asp-page="/Account/Register">
-                                    Ispuni anketu
-                                </a>
-                            }
+                            <partial name="_SurveyButton" />
                             <a class="btn btn-lg btn-neutral mx-2 px-lg-8" asp-controller="Home" asp-action="About">
                                 Pročitaj više
                             </a>
