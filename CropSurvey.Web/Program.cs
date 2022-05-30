@@ -1,4 +1,5 @@
 using CropSurvey.Data;
+using CropSurvey.Model;
 using CropSurvey.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         opt => opt.MigrationsAssembly("CropSurvey.DAL")
     ));
 builder.Services
-    .AddDefaultIdentity<IdentityUser>(options => {
+    .AddDefaultIdentity<AppUser>(options => {
         options.SignIn.RequireConfirmedAccount = false;
         options.Password.RequireDigit = false;
         options.Password.RequireLowercase = false;
@@ -20,7 +21,7 @@ builder.Services
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequiredLength = 6;
     })
-    .AddUserValidator<OptionalEmailUserValidator<IdentityUser>>()
+    .AddUserValidator<OptionalEmailUserValidator<AppUser>>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services
