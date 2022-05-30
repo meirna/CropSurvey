@@ -11,7 +11,7 @@ namespace CropSurvey.Model
 {
     public class AppUser : IdentityUser
     {
-        [Range(1, 100, ErrorMessage = "Molimo unesite cijeli broj")]
+        [Range(1, 100)]
         public int? Age { get; set; }
 
         public bool? WantResults { get; set; }

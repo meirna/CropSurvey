@@ -6,10 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using CropSurvey.Data;
 using CropSurvey.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -17,13 +19,16 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ApplicationDbContext _dbContext;
 
         public IndexModel(
             UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager)
+            SignInManager<AppUser> signInManager,
+            ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -56,21 +61,39 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+
+            [EmailAddress(ErrorMessage = "Molimo unesite ispravnu email adresu.")]
+            public string? Email { get; set; }
+
+            [Range(1, 100, ErrorMessage = "Molimo unesite broj godina.")]
+            public int? Age { get; set; }
+
+            public bool WantResults { get; set; }
+
+            public int? GenderID { get; set; }
+
+            public Gender? Gender { get; set; }
+
+            public int? KnowledgeLevelID { get; set; }
+
+            public KnowledgeLevel? KnowledgeLevel { get; set; }
         }
 
         private async Task LoadAsync(AppUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                Email = user.Email,
+                Age = user.Age,
+                WantResults = user.WantResults ?? false,
+                GenderID = user.GenderID,
+                Gender = user.Gender,
+                KnowledgeLevelID = user.KnowledgeLevelID,
+                KnowledgeLevel = user.KnowledgeLevel,
             };
         }
 
@@ -83,6 +106,8 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
             }
 
             await LoadAsync(user);
+            FillGenderDropdown();
+            FillKnowledgeLevelDropdown();
             return Page();
         }
 
@@ -100,20 +125,55 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            if (Input.Email != user.Email) user.Email = Input.Email;
+            if (Input.Age != user.Age) user.Age = Input.Age;
+            if (Input.WantResults != user.WantResults) user.WantResults = Input.WantResults;
+            if (Input.GenderID != user.GenderID) user.GenderID = Input.GenderID;
+            if (Input.KnowledgeLevelID != user.KnowledgeLevelID) user.KnowledgeLevelID = Input.KnowledgeLevelID;
+            var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
+                StatusMessage = "Došlo je do pogreške.";
+                return RedirectToPage();
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Promjene su uspješno spremljene.";
             return RedirectToPage();
+        }
+
+        private void FillGenderDropdown()
+        {
+            var selectItems = new List<SelectListItem>();
+
+            var listItem = new SelectListItem();
+            listItem.Text = "";
+            listItem.Value = "";
+            selectItems.Add(listItem);
+            foreach (var category in this._dbContext.Genders)
+            {
+                listItem = new SelectListItem(category.Name, category.ID.ToString());
+                selectItems.Add(listItem);
+            }
+
+            ViewData["Genders"] = selectItems;
+        }
+
+        private void FillKnowledgeLevelDropdown()
+        {
+            var selectItems = new List<SelectListItem>();
+
+            var listItem = new SelectListItem();
+            listItem.Text = "";
+            listItem.Value = "";
+            selectItems.Add(listItem);
+            foreach (var category in this._dbContext.KnowledgeLevels)
+            {
+                listItem = new SelectListItem(category.Name, category.ID.ToString());
+                selectItems.Add(listItem);
+            }
+
+            ViewData["KnowledgeLevels"] = selectItems;
         }
     }
 }
