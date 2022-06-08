@@ -1,0 +1,31 @@
+﻿@{
+	ViewData["Title"] = "Početna";
+	Layout = "_AppLayout";
+	var Completed = (int)ViewData["completed"];
+	var Percent = Math.Truncate((float)Completed / 30 * 100);
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <!-- Title -->
+        <h3 class="h4">Ispunjeno pitanja</h3>
+        <h1 class="display-6 my-3">@Completed/30</h1>
+        <div class="progress progress-lg mb-5">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: @Percent;">@Percent%</div>
+        </div>
+        @if (Completed == 0)
+        {
+            <a href="#" class="btn btn-sm btn-primary">
+                Započni anketu
+            </a>
+        } else
+        {
+            <a href="#" class="btn btn-sm btn-primary">
+                Nastavi anketu
+            </a>
+        }
+        <a class="btn btn-sm btn-outline-primary" asp-area="Identity" asp-page="/Account/Manage/Index">
+            Uredi svoj profil
+        </a>
+    </div>
+</div>

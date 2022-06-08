@@ -4,7 +4,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <a href="#" class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8">
+    <a class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8" asp-controller="Survey" asp-action="Index">
         Ispuni anketu
     </a>
 } else
