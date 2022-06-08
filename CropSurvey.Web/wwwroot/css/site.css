@@ -16,3 +16,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.form-check input,
+.form-check label {
+    cursor: pointer;
+}
+
+.radio-val {
+    bottom: -10;
+}

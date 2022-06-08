@@ -1,0 +1,98 @@
+﻿@model CropSurvey.Web.Models.QuestionDTO
+@{
+	ViewData["Title"] = "Anketa";
+	Layout = "_AppLayout";
+	var PrevID = @Model.QuestionID - 1;
+	var NextID = @Model.QuestionID + 1;
+}
+
+<h2>Pitanje @Model.QuestionID/30</h2>
+<form asp-action="Submit" method="post">
+	<input type="hidden" asp-for="QuestionID" value=@Model.QuestionID />
+	<input type="hidden" asp-for="Original" value=@Model.Original />
+	<input type="hidden" asp-for="CropA" value=@Model.CropA />
+	<input type="hidden" asp-for="CropB" value=@Model.CropB />
+	<input type="hidden" asp-for="ValueA" value=@Model.ValueA />
+	<input type="hidden" asp-for="ValueB" value=@Model.ValueB />
+
+
+	<div class="row d-flex align-items-center text-center text-lg-left mb-10">
+		<div class="col-12 col-xl-4 mt-10 position-relative">
+			<p class="lead">Original</p>
+			<img class="h-56" src="~/img/photos/@Model.Original" >
+			<div style="height: 60px" class="mt-2"></div>
+		</div>
+		<div class="col-12 col-xl-4 mt-10 position-relative">
+			<p class="lead">Izrez A</p>
+			<img class="h-56" src="~/img/crops/@Model.CropA">
+			<ul class="d-flex justify-content-center mt-2 p-0">
+				@for (var i = 1; i <= 5; i++)
+				{
+					<li class="form-group form-check px-2">
+						@if (Model.ValueA != 0 && Model.ValueA == i)
+						{
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingA" value="@i" id="@i" checked />
+						} else
+						{
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingA" value="@i" id="@i" />
+						}
+						<label class="form-check-label" for="@i">@i</label>
+					</li>
+				}
+			</ul>
+			<span class="text-danger position-absolute translate-middle radio-val" asp-validation-for="ValueA"></span>
+		</div>
+		<div class="col-12 col-xl-4 mt-10 position-relative">
+			<p class="lead">Izrez B</p>
+			<img class="h-56" src="~/img/crops/@Model.CropB">
+			<ul class="d-flex justify-content-center mt-2 p-0">
+				@for (var i = 1; i <= 5; i++)
+				{
+					<li class="form-check px-2">
+						@if (Model.ValueB != 0 && Model.ValueB == i)
+						{
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingB" value="@i" id="@i" checked />
+						} else
+						{
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingB" value="@i" id="@i" />
+						}
+						<label class="form-check-label" for="@i">@i</label>
+					</li>
+				}
+			</ul>
+			<span class="text-danger position-absolute translate-middle radio-val" asp-validation-for="ValueB"></span>
+		</div>
+	</div>
+	<div class="row d-flex flex-column-reverse flex-lg-row pb-10">
+		@if (PrevID > 0)
+		{
+			<div class="col-12 col-lg-6 d-flex mb-3">
+				<a class="btn btn-sm btn-primary w-100 w-lg-auto" asp-controller="Survey" asp-action="Question" asp-route-id="@PrevID">
+					Natrag
+				</a>
+			</div>
+			<div class="col-12 col-lg-6 d-flex justify-content-end mb-3">
+				<button class="btn btn-sm btn-primary w-100 w-lg-auto" type="submit">
+					Iduće pitanje
+				</button>
+			</div>
+		} else
+		{
+			<div class="col d-flex justify-content-end">
+				<button class="btn btn-sm btn-primary w-100 w-lg-auto" type="submit">
+					Iduće pitanje
+				</button>
+			</div>
+		}
+	</div>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+	<script type="text/javascript">
+		$.validator.setDefaults({ ignore: null });
+		$("input[name='RatingA']").on("click", (event) => $("input[name='ValueA']").val(event.target.value));
+		$("input[name='RatingB']").on("click", (event) => $("input[name='ValueB']").val(event.target.value));
+	</script>
+}

@@ -2,6 +2,7 @@
 	ViewData["Title"] = "Početna";
 	Layout = "_AppLayout";
 	var Completed = (int)ViewData["completed"];
+    var NextID = Completed+1;
 	var Percent = Math.Truncate((float)Completed / 30 * 100);
 }
 
@@ -11,7 +12,7 @@
         <h3 class="h4">Odgovoreno pitanja</h3>
         <h1 class="display-6 my-3">@Completed/30</h1>
         <div class="progress progress-lg mb-5">
-            <div class="progress-bar bg-primary" role="progressbar" style="width: @Percent;">@Percent%</div>
+            <div class="progress-bar bg-primary" role="progressbar" style="width: @Percent%;">@Percent%</div>
         </div>
         @if (Completed == 0)
         {
@@ -20,7 +21,7 @@
             </a>
         } else
         {
-            <a href="#" class="btn btn-sm btn-primary">
+            <a class="btn btn-sm btn-primary" asp-controller="Survey" asp-action="Question" asp-route-id="@NextID">
                 Nastavi anketu
             </a>
         }
