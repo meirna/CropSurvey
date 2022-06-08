@@ -1,0 +1,39 @@
+﻿@{
+	ViewData["Title"] = "Anketa";
+	Layout = "_AppLayout";
+}
+
+<div class="container">
+    <main role="main">
+        <div class="py-10 py-lg-20">
+            <div class="container max-w-screen-md">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="ls-tight font-bolder mb-5">
+                            Upute
+                        </h1>
+                        <p class="lead mb-3">
+                            Treba ocijeniti izreze fotografije ocjenama od 1 do 5.
+                        </p>
+                        <p class="lead mb-3">
+                            Na svakoj stranici prva je originalna fotografija.<br />
+                            Potom slijede njena dva izreza s opcijama za ocjenjivanje.
+                        </p>
+                        <div class="lh-relaxed my-5 p-5 bg-gray-200 rounded">
+                            <div class="mb-1 font-bold">Ocjene:</div>
+                            1 = nedovoljan<br />
+                            2 = dovoljan<br />
+                            3 = dobar<br />
+                            4 = vrlo dobar<br />
+                            5 = odličan<br />
+                        </div>
+                        <a class="btn btn-sm btn-primary" asp-controller="Survey" asp-action="Start">
+                            Ispuni anketu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
