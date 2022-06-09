@@ -28,4 +28,14 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        const onDelete = (id) => {
+			$.ajax({
+				url: `/Admin/DeleteRating/${id}`,
+				method: "DELETE",
+			}).then(result => {
+				$(`#rating-${id}`).replaceWith(result)
+			});
+		}
+    </script>
 }

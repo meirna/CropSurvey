@@ -1,5 +1,5 @@
 ﻿@using CropSurvey.Model
-@model HashSet<Rating>
+@model List<Rating>
 
 <div class="table-responsive">
     <table class="table table-hover table-nowrap table-striped">
@@ -17,7 +17,7 @@
                 var Rating = item.value;
                 var i = item.i;
                 var QuestionID = @Math.Ceiling((decimal)(i + 1) / 2);
-                <tr>
+                <tr id="rating-@Rating.ID">
                     <td>
                         @QuestionID
                     </td>
@@ -29,7 +29,7 @@
                     <td>
                         <span class="badge @(Rating.Value == 5 ? "bg-soft-success text-success" : Rating.Value > 1 ? "bg-soft-warning text-warning" : "bg-soft-danger text-danger")">@Rating.Value/5</span>                    </td>
                     <td>
-                       <a class="text-muted" style="cursor: pointer;">
+                       <a class="text-muted" style="cursor: pointer;" onclick="onDelete(@Rating.ID)">
                            <i class="bi bi-trash-fill"></i>
                         </a>
                     </td>

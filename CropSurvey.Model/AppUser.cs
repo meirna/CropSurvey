@@ -24,6 +24,6 @@ namespace CropSurvey.Model
         public int? KnowledgeLevelID { get; set; }
         public KnowledgeLevel? KnowledgeLevel { get; set; }
 
-        public virtual ICollection<Rating>? Ratings { get; set; }
+        public virtual IList<Rating>? Ratings { get; set; }
     }
 }

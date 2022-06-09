@@ -66,6 +66,21 @@ namespace CropSurvey.Web.Controllers
             return RedirectToAction("Details", new { ID = Model.Id, ok = false });
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRating(int ID)
+        {
+            try
+            {
+                this._dbContext.Ratings.Remove(new Rating { ID = ID });
+                var ok = await this._dbContext.SaveChangesAsync();
+                if (ok == 1)
+                    return Ok();
+            }
+            catch { }
+
+            return BadRequest();
+        }
+
         private async Task<List<UserDTO>> GetUserDTOListAsync()
         {
             var responseUsers = await this._dbContext
