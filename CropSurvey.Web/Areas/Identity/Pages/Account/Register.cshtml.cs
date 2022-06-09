@@ -79,15 +79,15 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Korisničko ime je obavezno.")]
             public string UserName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Lozinka je obavezna.")]
+            [StringLength(100, ErrorMessage = "Lozinka mora imati barem {2} znakova.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -98,7 +98,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Lozinka i ponovljena lozinka se ne podudaraju.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -152,6 +152,8 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors.DistinctBy(e => e.Description))
                 {
+                    if (error.Code == "DuplicateUserName")
+                        error.Description = "Korisničko ime je zauzeto.";
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
