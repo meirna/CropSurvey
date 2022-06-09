@@ -1,0 +1,29 @@
+﻿@using CropSurvey.Model
+@model AppUser
+@{
+    ViewData["Title"] = "Detalji";
+    Layout = "_AppLayout";
+    var StatusMessage = ViewData["StatusMessage"] as string;
+}
+
+@if (!String.IsNullOrEmpty(StatusMessage))
+{
+    var statusMessageClass = StatusMessage.StartsWith("Došlo") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass alert-dismissible fade show mb-5" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @StatusMessage
+    </div>
+}
+
+<div class="row">
+    <div class="col-12 col-xl-4">
+        <form asp-action="EditUser" method="post">
+            <partial name="_ProfileForm" model=@Model view-data=@ViewData />
+            <button type="submit" class="btn btn-primary w-full">Spremi</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

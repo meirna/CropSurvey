@@ -1,0 +1,39 @@
+﻿@using CropSurvey.Model
+@model AppUser
+@{
+    var KnowledgeLevels = ViewData["KnowledgeLevels"] as List<SelectListItem>;
+    var Genders = ViewData["Genders"] as List<SelectListItem>;
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="@Model.Id" value=@Model.Id />
+<div class="mb-5">
+    <label class="form-label" asp-for="@Model.UserName">Korisničko ime</label>
+    <input class="form-control" asp-for="@Model.UserName" disabled>
+</div>
+<div class="mb-5">
+    <label class="form-label" asp-for="@Model.KnowledgeLevelID">Znanje o fotografiji</label>
+    <select asp-for="@Model.KnowledgeLevelID" asp-items="KnowledgeLevels" class="form-control"></select>
+</div>
+<div class="mb-5">
+    <label class="form-label" asp-for="@Model.Age">Dob</label>
+    <input class="form-control" asp-for="@Model.Age">
+    <span asp-validation-for="@Model.Age" class="text-danger"></span>
+</div>
+<div class="mb-5">
+    <label class="form-label" asp-for="@Model.GenderID">Spol</label>
+    <select asp-for="@Model.GenderID" asp-items="Genders" class="form-control"></select>
+</div>
+<div class="mb-5">
+    <label class="form-label" asp-for="@Model.Email">Email adresa</label>
+    <input class="form-control" asp-for="@Model.Email">
+    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+</div>
+<div class="mb-5">
+    <div class="form-check">
+        <input class="form-check-input" asp-for="@Model.WantResults">
+        <label class="form-check-label" asp-for="@Model.WantResults">
+            Želi saznati rezultate istraživanja
+        </label>
+    </div>
+</div>

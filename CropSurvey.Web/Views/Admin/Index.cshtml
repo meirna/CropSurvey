@@ -27,7 +27,7 @@
             {
                 <tr>
                     <td>
-                        <a class="text-heading font-semibold" href="#">
+                        <a class="text-heading font-semibold" asp-controller="Admin" asp-action="Details" asp-route-id="@User.UserID">
                             @User.UserName
                         </a>
                     </td>
@@ -41,7 +41,7 @@
                         @(User.WantResults == null ? "" : User.WantResults == true ? "Da" : "Ne")
                     </td>
                     <td>
-                       <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <a class="text-muted" asp-controller="Admin" asp-action="Details" asp-route-id="@User.UserID">
                            <i class="bi bi-pencil-square"></i>
                         </a>
                     </td>
