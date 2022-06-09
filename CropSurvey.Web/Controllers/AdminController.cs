@@ -66,6 +66,18 @@ namespace CropSurvey.Web.Controllers
             return RedirectToAction("Details", new { ID = Model.Id, ok = false });
         }
 
+        public async Task<IActionResult> DeleteUser(string ID)
+        {
+            try
+            {
+                var user = await this._userManager.FindByIdAsync(ID);
+                var response = await this._userManager.DeleteAsync(user);
+                return RedirectToAction("Index");
+            } catch { }
+
+            return StatusCode(500);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteRating(int ID)
         {

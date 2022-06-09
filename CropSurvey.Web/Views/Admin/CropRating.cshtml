@@ -17,7 +17,7 @@
         <p><span class="font-bold">Kreirano:</span> @Model.Created</p>
         <p><span class="font-bold">Uređeno:</span> @Model.Modified</p>
         <p><span class="font-bold">Ocjena:</span> <span class="badge @(Model.Value == 5 ? "bg-soft-success text-success" : Model.Value > 1 ? "bg-soft-warning text-warning" : "bg-soft-danger text-danger")">@Model.Value/5</span></p>
-        <button class="btn btn-primary w-full mt-4" type="button" onclick="onDelete(@Model.ID)">Obriši</button>
+        <button class="btn btn-danger w-full mt-4" type="button" onclick="onDelete(@Model.ID)">Obriši</button>
     </div>
 </div>
 
