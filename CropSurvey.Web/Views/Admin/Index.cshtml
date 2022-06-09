@@ -33,7 +33,7 @@
                     </td>
                     <td>
                         @{
-                            var percent = (User.RatingCount / 60) * 100;
+                            var percent = (User.RatingCount / 60.0) * 100;
                         }
                         <span class="badge @(percent == 100 ? "bg-soft-success text-success" : percent > 50 ? "bg-soft-warning text-warning" : "bg-soft-danger text-danger")">@(User.RatingCount/2)/30</span>
                     </td>
