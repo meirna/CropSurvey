@@ -108,6 +108,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
             await LoadAsync(user);
             FillGenderDropdown();
             FillKnowledgeLevelDropdown();
+
             return Page();
         }
 
@@ -147,7 +148,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
             var selectItems = new List<SelectListItem>();
 
             var listItem = new SelectListItem();
-            listItem.Text = "";
+            listItem.Text = "- odaberi -";
             listItem.Value = "";
             selectItems.Add(listItem);
             foreach (var category in this._dbContext.Genders)
@@ -164,7 +165,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
             var selectItems = new List<SelectListItem>();
 
             var listItem = new SelectListItem();
-            listItem.Text = "";
+            listItem.Text = "- odaberi -";
             listItem.Value = "";
             selectItems.Add(listItem);
             foreach (var category in this._dbContext.KnowledgeLevels)
