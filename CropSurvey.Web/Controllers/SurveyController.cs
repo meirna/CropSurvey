@@ -50,12 +50,12 @@ namespace CropSurvey.Web.Controllers
             if (ID < 1 || ID > 30)
                 return RedirectToAction("Question", new { ID = 1 });
 
-            var n = ID % 15;
+            var skipN = (ID % 15) - 1;
             var response = await this._dbContext
                 .Photos!
                 .Include(p => p.Crops!.OrderBy(c => c.ID))
                 .OrderBy(p => p.ID)
-                .Skip(n)
+                .Skip(skipN >= 0 ? skipN : 14)
                 .FirstAsync();
 
             var is1x1 = ID <= 15;
