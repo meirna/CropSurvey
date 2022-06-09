@@ -33,7 +33,7 @@ namespace CropSurvey.Web.Controllers
             var response = await this._dbContext
                 .Users
                 .Where(u => u.Id == ID)
-                .Include(u => u.Ratings)
+                .Include(u => u.Ratings.OrderBy(r => r.CropID))
                 .FirstOrDefaultAsync();
             this.FillGenderDropdown();
             this.FillKnowledgeLevelDropdown();

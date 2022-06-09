@@ -1,0 +1,40 @@
+﻿@using CropSurvey.Model
+@model HashSet<Rating>
+
+<div class="table-responsive">
+    <table class="table table-hover table-nowrap table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Pitanje</th>
+                <th scope="col">Izrez</th>
+                <th scope="col">Ocjena</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Select((value, i) => new { i, value })) 
+            {
+                var Rating = item.value;
+                var i = item.i;
+                var QuestionID = @Math.Ceiling((decimal)(i + 1) / 2);
+                <tr>
+                    <td>
+                        @QuestionID
+                    </td>
+                    <td>
+                        <a class="text-heading font-semibold" asp-controller="Survey" asp-action="Question" asp-route-id="@QuestionID">
+                            @Rating.CropID
+                        </a>
+                    </td>
+                    <td>
+                        <span class="badge @(Rating.Value == 5 ? "bg-soft-success text-success" : Rating.Value > 1 ? "bg-soft-warning text-warning" : "bg-soft-danger text-danger")">@Rating.Value/5</span>                    </td>
+                    <td>
+                       <a class="text-muted" style="cursor: pointer;">
+                           <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                 </tr>
+            }
+        </tbody>
+    </table>
+</div>
