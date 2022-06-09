@@ -23,5 +23,7 @@ namespace CropSurvey.Model
         [ForeignKey(nameof(KnowledgeLevel))]
         public int? KnowledgeLevelID { get; set; }
         public KnowledgeLevel? KnowledgeLevel { get; set; }
+
+        public virtual ICollection<Rating>? Ratings { get; set; }
     }
 }

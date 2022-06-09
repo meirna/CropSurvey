@@ -1,0 +1,52 @@
+﻿@using CropSurvey.Web.Models
+@model List<UserDTO>
+@{
+	ViewData["Title"] = "Početna";
+	Layout = "_AppLayout";
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h3 class="h4">Ukupno korisnika:</h3>
+        <h1 class="display-6 my-3">@Model.Count</h1>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-nowrap">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Korisničko ime</th>
+                <th scope="col">Odgovoreno</th>
+                <th scope="col">Želi rezultate</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var User in Model) 
+            {
+                <tr>
+                    <td>
+                        <a class="text-heading font-semibold" href="#">
+                            @User.UserName
+                        </a>
+                    </td>
+                    <td>
+                        @{
+                            var percent = (User.RatingCount / 60) * 100;
+                        }
+                        <span class="badge @(percent == 100 ? "bg-soft-success text-success" : percent > 50 ? "bg-soft-warning text-warning" : "bg-soft-danger text-danger")">@(User.RatingCount/2)/30</span>
+                    </td>
+                    <td>
+                        @(User.WantResults == null ? "" : User.WantResults == true ? "Da" : "Ne")
+                    </td>
+                    <td>
+                       <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+                 </tr>
+            }
+        </tbody>
+    </table>
+</div>
