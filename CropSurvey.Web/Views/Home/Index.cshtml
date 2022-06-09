@@ -1,41 +1,37 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Naslovna";
 }
 
-<partial name="_Navbar" />
-<div class="container">
-    <main role="main">
-        <div class="py-32 position-relative">
-            <div class="container-lg max-w-screen-xl">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 mb-5">
-                        <h5 class="h5 mb-5 text-uppercase text-warning mb-5">
-                            Anketa
-                        </h5>
-                        <h1 class="ls-tight font-bolder display-3 mb-5">
-                            kropaj.me
-                        </h1>
-                        <p class="lead mb-10">
-                            Istraživanje uspješnosti automatskog izrezivanja fotografija
-                        </p>
-                        <div class="mx-n2">
-                            <partial name="_SurveyButton" />
-                            <a class="btn btn-lg btn-neutral mx-2 px-lg-8" asp-controller="Home" asp-action="About">
-                                Pročitaj više
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-6 ms-auto">
-                        <div class="position-relative">
-                            <div class="svg-fluid position-relative overlap-10 pt-10 px-10">
-                                <img src="~/lib/svg/undraw_image_viewer_re_7ejc.svg" />
-                            </div>
-                            <!--<div class="position-absolute bottom-0 start-72 h-64 w-64 mt-n4 transform translate-y-n1/2 translate-x-n1/2 gradient-bottom-right start-purple-400 end-cyan-500 filter blur-100 rounded-4 p-5"> </div> -->
-                        </div>
+<div class="py-32 position-relative">
+    <div class="container-lg max-w-screen-xl">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5">
+                <h5 class="h5 mb-5 text-uppercase text-warning mb-5">
+                    Anketa
+                </h5>
+                <h1 class="ls-tight font-bolder display-3 mb-5">
+                    kropaj.me
+                </h1>
+                <p class="lead mb-10">
+                    Istraživanje uspješnosti automatskog izrezivanja fotografija
+                </p>
+                <div class="mx-n2">
+                    <partial name="_SurveyButton" />
+                    <a class="btn btn-lg btn-neutral mx-2 px-lg-8" asp-controller="Home" asp-action="About">
+                        Pročitaj više
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 ms-auto">
+                <div class="position-relative">
+                    <div class="svg-fluid position-relative overlap-10 pt-10 px-10">
+                        <img src="~/lib/svg/undraw_image_viewer_re_7ejc.svg" />
                     </div>
+                    <!--<div class="position-absolute bottom-0 start-72 h-64 w-64 mt-n4 transform translate-y-n1/2 translate-x-n1/2 gradient-bottom-right start-purple-400 end-cyan-500 filter blur-100 rounded-4 p-5"> </div> -->
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </div>

@@ -7,7 +7,12 @@
     <partial name="_StylesheetsPartial" />
 </head>
 <body>
-    @RenderBody()
+    <partial name="_Navbar" />
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
     <partial name="_ScriptsPartial" />
     @await RenderSectionAsync("Scripts", required: false)
 </body>

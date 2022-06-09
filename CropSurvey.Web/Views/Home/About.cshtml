@@ -2,44 +2,40 @@
     ViewData["Title"] = "O projektu";
 }
 
-<partial name="_Navbar" />
-<div class="container">
-    <main role="main">
-        <div class="py-10 py-lg-20">
-            <div class="container max-w-screen-md">
-                <div class="row">
-                    <div class="col-12">
-                        <h5 class="h5 mb-5 text-uppercase text-primary">
-                            Kropaj.me
-                        </h5>
-                        <h1 class="ls-tight font-bolder mb-5">
-                            O projektu
-                        </h1>
-                        <p class="lh-relaxed mb-10 p-5 bg-gray-200 rounded">
-                            <a href="https://en.wikipedia.org/wiki/Cropping_(image)" target="_blank">Izrezivanje fotografije (eng. <span class="font-italic">cropping</span>)</a> je postupak uklanjanja njenih neželjenih rubnih dijelova. 
-                            Najčešće se koristi za poboljšanje kompozicije ili promjenu omjera stranica fotografije.
-                        </p>
-                        <p class="lead mb-3">
-                            <span class="font-italic">Automatsko izrezivanje fotografija</span> tema je <a asp-controller="Home" asp-action="AboutMe">mojeg</a> završnog rada. 
-                        </p>
-                        <p class="lead mb-3">
-                            Set podataka ove ankete sastoji se od 15 fotografija. Fotografije su automatski izrezane korištenjem dvaju algoritama: jedan primjenjuje suvremenu umjetnu inteligenciju (neuronska mreža), a drugi "klasične" metode računalnog vida.                 
-                        </p>
-                        <p class="lead mb-3">
-                            Anketa stoga ima 15 koraka u kojima se ocjenjuju dva izreza i služi za usporedbu rezultata tih dvaju algoritama.
-                        </p>
-                        <p class="lead mb-3">
-                            Ako vas zanimaju rezultati ankete, na <a asp-area="Identity" asp-page="/Account/Manage/Index">svojem profilu</a> označite opciju <span class="font-code bg-gray-200 rounded p-1">"Želim saznati rezultate istraživanja"</span> i unesite email adresu na koju ću poslati rezultate čim budu dostupni.
-                        </p>
-                        <p class="lead mb-3">
-                            Hvala na interesu i sudjelovanju. :)
-                        </p>
-                        <div class="mx-n2 mt-10">
-                            <partial name="_SurveyButton" />
-                        </div>
-                    </div>
+<div class="py-10 py-lg-20">
+    <div class="container max-w-screen-md">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="h5 mb-5 text-uppercase text-primary">
+                    Kropaj.me
+                </h5>
+                <h1 class="ls-tight font-bolder mb-5">
+                    O projektu
+                </h1>
+                <p class="lh-relaxed mb-10 p-5 bg-gray-200 rounded">
+                    <a href="https://en.wikipedia.org/wiki/Cropping_(image)" target="_blank">Izrezivanje fotografije (eng. <span class="font-italic">cropping</span>)</a> je postupak uklanjanja njenih neželjenih rubnih dijelova. 
+                    Najčešće se koristi za poboljšanje kompozicije ili promjenu omjera stranica fotografije.
+                </p>
+                <p class="lead mb-3">
+                    <span class="font-italic">Automatsko izrezivanje fotografija</span> tema je <a asp-controller="Home" asp-action="AboutMe">mojeg</a> završnog rada. 
+                </p>
+                <p class="lead mb-3">
+                    Set podataka ove ankete sastoji se od 15 fotografija. Fotografije su automatski izrezane korištenjem dvaju algoritama: jedan primjenjuje suvremenu umjetnu inteligenciju (neuronska mreža), a drugi "klasične" metode računalnog vida.<br /> 
+                    Svakim algoritmom fotografija je izrezana u dva omjera, 1:1 i 16:9.              
+                </p>
+                <p class="lead mb-3">
+                    Anketa stoga ima 30 koraka u kojima se ocjenjuju dva izreza i služi za usporedbu rezultata tih dvaju algoritama.
+                </p>
+                <p class="lead mb-3">
+                    Ako vas zanimaju rezultati ankete, na <a asp-area="Identity" asp-page="/Account/Manage/Index">svojem profilu</a> označite opciju <span class="font-code bg-gray-200 rounded p-1">"Želim saznati rezultate istraživanja"</span> i unesite email adresu na koju ću poslati rezultate čim budu dostupni.
+                </p>
+                <p class="lead mb-3">
+                    Hvala na interesu i sudjelovanju. :)
+                </p>
+                <div class="mx-n2 mt-10">
+                    <partial name="_SurveyButton" />
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </div>
