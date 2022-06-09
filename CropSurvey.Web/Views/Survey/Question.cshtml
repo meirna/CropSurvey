@@ -6,7 +6,7 @@
 	var NextID = @Model.QuestionID + 1;
 }
 
-<h2>Pitanje @Model.QuestionID/30</h2>
+<h1 class="h2 ls-tight mb-1">Pitanje @Model.QuestionID/30</h1>
 <form asp-action="Submit" method="post">
 	<input type="hidden" asp-for="QuestionID" value=@Model.QuestionID />
 	<input type="hidden" asp-for="Original" value=@Model.Original />
@@ -19,24 +19,24 @@
 	<div class="row d-flex align-items-center text-center text-lg-left mb-10">
 		<div class="col-12 col-xl-4 mt-10 position-relative">
 			<p class="lead">Original</p>
-			<img class="h-56" src="~/img/photos/@Model.Original" >
+			<img class="h-25" src="~/img/photos/@Model.Original" >
 			<div style="height: 60px" class="mt-2"></div>
 		</div>
 		<div class="col-12 col-xl-4 mt-10 position-relative">
 			<p class="lead">Izrez A</p>
-			<img class="h-56" src="~/img/crops/@Model.CropA">
+			<img class="h-25 w-75" src="~/img/crops/@Model.CropA">
 			<ul class="d-flex justify-content-center mt-2 p-0">
 				@for (var i = 1; i <= 5; i++)
 				{
 					<li class="form-group form-check px-2">
-						@if (Model.ValueA != 0 && Model.ValueA == i)
+						@if (Model.ValueA == i)
 						{
-							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingA" value="@i" id="@i" checked />
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingA" value="@i" id="RatingA-@i" checked />
 						} else
 						{
-							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingA" value="@i" id="@i" />
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingA" value="@i" id="RatingA-@i" />
 						}
-						<label class="form-check-label" for="@i">@i</label>
+						<label class="form-check-label" for="RatingA-@i">@i</label>
 					</li>
 				}
 			</ul>
@@ -44,19 +44,19 @@
 		</div>
 		<div class="col-12 col-xl-4 mt-10 position-relative">
 			<p class="lead">Izrez B</p>
-			<img class="h-56" src="~/img/crops/@Model.CropB">
+			<img class="h-25 w-75" src="~/img/crops/@Model.CropB">
 			<ul class="d-flex justify-content-center mt-2 p-0">
 				@for (var i = 1; i <= 5; i++)
 				{
 					<li class="form-check px-2">
-						@if (Model.ValueB != 0 && Model.ValueB == i)
+						@if (Model.ValueB == i)
 						{
-							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingB" value="@i" id="@i" checked />
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingB" value="@i" id="RatingB-@i" checked />
 						} else
 						{
-							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingB" value="@i" id="@i" />
+							<input class="form-check-input d-block float-none m-0" type="radio" name="RatingB" value="@i" id="RatingB-@i" />
 						}
-						<label class="form-check-label" for="@i">@i</label>
+						<label class="form-check-label" for="RatingB-@i">@i</label>
 					</li>
 				}
 			</ul>
@@ -73,7 +73,7 @@
 			</div>
 			<div class="col-12 col-lg-6 d-flex justify-content-end mb-3">
 				<button class="btn btn-sm btn-primary w-100 w-lg-auto" type="submit">
-					Iduće pitanje
+					@(Model.QuestionID == 30 ? "Završi anketu" : "Iduće pitanje")
 				</button>
 			</div>
 		} else
@@ -88,8 +88,7 @@
 </form>
 
 @section Scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <partial name="_ValidationScriptsPartial" />
 	<script type="text/javascript">
 		$.validator.setDefaults({ ignore: null });
 		$("input[name='RatingA']").on("click", (event) => $("input[name='ValueA']").val(event.target.value));

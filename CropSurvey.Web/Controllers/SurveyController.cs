@@ -25,10 +25,7 @@ namespace CropSurvey.Web.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var response = await this._dbContext
-                .Ratings!
-                .Where(r => r.UserID == this.UserID)
-                .CountAsync();
+            var response = await GetUserRatingCount();
             ViewData["completed"] = response / 2;
 
             return View();
@@ -36,6 +33,15 @@ namespace CropSurvey.Web.Controllers
 
         public IActionResult Start()
         {
+            return View();
+        }
+
+        public async Task<IActionResult> Done()
+        {
+            var response = await GetUserRatingCount();
+            if (response != 60)
+                return RedirectToAction("Index");
+
             return View();
         }
 
@@ -79,6 +85,9 @@ namespace CropSurvey.Web.Controllers
                 await CreateOrUpdateRatingAsync(questionDTO.CropA, questionDTO.ValueA);
                 await CreateOrUpdateRatingAsync(questionDTO.CropB, questionDTO.ValueB);
                 await this._dbContext.SaveChangesAsync();
+                if (questionDTO.QuestionID == 30)
+                    return RedirectToAction("Done");
+
                 return RedirectToAction("Question", new { ID = questionDTO.QuestionID + 1 });
             }
 
@@ -115,6 +124,14 @@ namespace CropSurvey.Web.Controllers
                 };
                 await this._dbContext.Ratings!.AddAsync(rating);
             }
+        }
+
+        private async Task<int> GetUserRatingCount()
+        {
+            return await this._dbContext
+                .Ratings!
+                .Where(r => r.UserID == this.UserID)
+                .CountAsync();
         }
     }
 }

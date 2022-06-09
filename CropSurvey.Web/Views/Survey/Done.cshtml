@@ -1,0 +1,28 @@
+﻿@{
+	ViewData["Title"] = "Anketa";
+	Layout = "_AppLayout";
+}
+
+<div class="py-10 py-lg-20">
+    <div class="container max-w-screen-md">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="ls-tight font-bolder mb-5">
+                    Kraj
+                </h1>
+                <p class="lead mb-3">
+                    Ispunili ste anketu.
+                </p>
+                <p class="lead mb-3">
+                    Hvala na sudjelovanju.
+                </p>
+                <form class="form-inline d-inline-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="btn btn-sm btn-primary  mt-5">Odjavi se</button>
+                </form>
+                <a class="btn btn-sm btn-outline-primary mt-5" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    Uredi svoj profil
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
