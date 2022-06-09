@@ -1,7 +1,7 @@
 ﻿@using CropSurvey.Model
 @model AppUser
 @{
-    ViewData["Title"] = "Detalji";
+    ViewData["Title"] = "Detalji korisnika " + Model.UserName;
     Layout = "_AppLayout";
     var StatusMessage = ViewData["StatusMessage"] as string;
 }

@@ -71,7 +71,7 @@ namespace CropSurvey.Web.Controllers
         {
             try
             {
-                this._dbContext.Ratings.Remove(new Rating { ID = ID });
+                this._dbContext.Ratings!.Remove(new Rating { ID = ID });
                 var ok = await this._dbContext.SaveChangesAsync();
                 if (ok == 1)
                     return Ok();
@@ -79,6 +79,17 @@ namespace CropSurvey.Web.Controllers
             catch { }
 
             return BadRequest();
+        }
+
+        public async Task<IActionResult> CropRating(int ID)
+        {
+            var response = await this._dbContext
+                .Ratings!
+                .Where(r => r.ID == ID)
+                .Include(r => r.User)
+                .FirstOrDefaultAsync();
+
+            return View(response);
         }
 
         private async Task<List<UserDTO>> GetUserDTOListAsync()

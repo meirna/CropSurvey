@@ -1,0 +1,38 @@
+﻿@using CropSurvey.Model
+@model Rating
+@{
+    ViewData["Title"] = "Detalji korisnika " + Model.User.UserName;
+    Layout = "_AppLayout";
+}
+
+<a class="d-block h-10" href="javascript:void(0);" onclick="goBack()">
+    ← natrag
+</a>
+<div class="row">
+    <div class="col-12 col-lg-4 mb-10">
+        <img src="~/img/crops/@Model.CropID" />
+        <p>@Model.CropID</p>
+    </div>
+    <div class="col-12 col-lg-4">
+        <p><span class="font-bold">Kreirano:</span> @Model.Created</p>
+        <p><span class="font-bold">Uređeno:</span> @Model.Modified</p>
+        <p><span class="font-bold">Ocjena:</span> <span class="badge @(Model.Value == 5 ? "bg-soft-success text-success" : Model.Value > 1 ? "bg-soft-warning text-warning" : "bg-soft-danger text-danger")">@Model.Value/5</span></p>
+        <button class="btn btn-primary w-full mt-4" type="button" onclick="onDelete(@Model.ID)">Obriši</button>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const onDelete = (id) => {
+			$.ajax({
+				url: `/Admin/DeleteRating/${id}`,
+				method: "DELETE",
+			}).then(result => {
+				goBack();
+			});
+		}
+
+        const goBack = () => history.go(-1);
+    </script>
+}
