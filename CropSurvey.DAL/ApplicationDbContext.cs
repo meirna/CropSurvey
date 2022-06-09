@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using CropSurvey.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +33,7 @@ namespace CropSurvey.Data
             this.SeedPhotoCategories(modelBuilder);
             this.SeedPhotos(modelBuilder);
             this.SeedCrops(modelBuilder);
+            this.SeedRoles(modelBuilder);
         }
 
         private void SeedGenders(ModelBuilder modelBuilder)
@@ -94,6 +96,12 @@ namespace CropSurvey.Data
                     });
                 }
             }
+        }
+
+        private void SeedRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityRole>()
+                .HasData(new IdentityRole() { Name = "Admin" });
         }
     }
 }
