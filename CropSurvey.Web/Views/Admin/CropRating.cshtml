@@ -5,7 +5,7 @@
     Layout = "_AppLayout";
 }
 
-<a class="d-block h-10" href="javascript:void(0);" onclick="goBack()">
+<a class="d-block h-10" asp-action="Details" asp-route-id="@Model.UserID">
     ← natrag
 </a>
 <div class="row">
@@ -29,10 +29,8 @@
 				url: `/Admin/DeleteRating/${id}`,
 				method: "DELETE",
 			}).then(result => {
-				goBack();
+				history.go(-1);
 			});
 		}
-
-        const goBack = () => history.go(-1);
     </script>
 }
