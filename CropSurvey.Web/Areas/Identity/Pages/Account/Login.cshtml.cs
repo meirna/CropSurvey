@@ -66,6 +66,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Korisničko ime je obavezno.")]
+            [StringLength(100, ErrorMessage = "Moguće je unijeti najviše 100 znakova.")]
             public string UserName { get; set; }
 
             /// <summary>

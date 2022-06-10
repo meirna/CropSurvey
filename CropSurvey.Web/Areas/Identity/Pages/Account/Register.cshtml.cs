@@ -80,6 +80,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Korisničko ime je obavezno.")]
+            [StringLength(100, ErrorMessage = "Moguće je unijeti najviše 100 znakova.")]
             public string UserName { get; set; }
 
             /// <summary>
