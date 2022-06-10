@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
+COPY ["certificate", "certificate"]
 
 ENV ASPNETCORE_URLS="https://+;http://+"
 ENV CLIENT_SECRET=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
