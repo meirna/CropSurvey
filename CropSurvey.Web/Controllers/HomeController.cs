@@ -1,20 +1,27 @@
 ﻿using System.Diagnostics;
+using CropSurvey.Data;
+using CropSurvey.Model;
 using CropSurvey.Models;
+using CropSurvey.Web.Controllers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CropSurvey.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext, UserManager<AppUser> userManager) : base(dbContext, userManager)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
+            var response = await GetUserRatingCount();
+            ViewData["completed"] = response;
+
             return View();
         }
 
@@ -23,13 +30,19 @@ namespace CropSurvey.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> AboutAsync()
         {
+            var response = await GetUserRatingCount();
+            ViewData["completed"] = response;
+
             return View();
         }
 
-        public IActionResult AboutMe()
+        public async Task<IActionResult> AboutMeAsync()
         {
+            var response = await GetUserRatingCount();
+            ViewData["completed"] = response;
+
             return View();
         }
 

@@ -10,18 +10,9 @@ using Microsoft.EntityFrameworkCore;
 namespace CropSurvey.Web.Controllers
 {
     [Authorize]
-    public class SurveyController : Controller
+    public class SurveyController : BaseController
     {
-        protected ApplicationDbContext _dbContext;
-        protected UserManager<AppUser> _userManager;
-
-        public SurveyController(ApplicationDbContext dbContext, UserManager<AppUser> userManager)
-        {
-            this._dbContext = dbContext;
-            this._userManager = userManager;
-        }
-
-        public string UserID { get { return this._userManager.GetUserId(base.User); } }
+        public SurveyController(ApplicationDbContext dbContext, UserManager<AppUser> userManager) : base(dbContext, userManager) { }
 
         public async Task<IActionResult> IndexAsync()
         {
@@ -124,14 +115,6 @@ namespace CropSurvey.Web.Controllers
                 };
                 await this._dbContext.Ratings!.AddAsync(rating);
             }
-        }
-
-        private async Task<int> GetUserRatingCount()
-        {
-            return await this._dbContext
-                .Ratings!
-                .Where(r => r.UserID == this.UserID)
-                .CountAsync();
         }
     }
 }

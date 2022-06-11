@@ -5,7 +5,18 @@
     var NextID = Completed+1;
 	var Percent = Math.Truncate((float)Completed / 30 * 100);
 }
-
+@if (Completed == 30)
+{
+    <div class="alert bg-transparent text-success border-success mb-3" role="alert">
+        <strong>Anketa ispunjena, hvala!</strong> 
+        Možete urediti 
+        <a style="color:inherit;text-decoration:underline;" asp-controller="Survey" asp-action="Question" asp-route-id="@NextID">svoje odgovore</a>, 
+        <a style="color:inherit;text-decoration:underline;" asp-area="Identity" asp-page="/Account/Manage/Index">osobne podatke</a> ili se 
+        <form class="form-inline d-inline align-bottom" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit" class="btn btn-link d-inline" style="color:inherit;text-decoration:underline;padding:0;border:0;line-height:inherit;">odjaviti</button>.
+        </form>
+    </div>
+}
 <div class="card mb-3">
     <div class="card-body">
         <!-- Title -->
