@@ -7,8 +7,8 @@ EXPOSE 443
 COPY ["certificate", "certificate"]
 
 ENV ASPNETCORE_URLS="https://+;http://+"
-ENV CLIENT_SECRET=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
-ENV CLIENT_ID=992294165784-ujrkmtdh9hdm23r225pglsfql5773v5a.apps.googleusercontent.com
+ENV CLIENT_SECRET=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
+ENV CLIENT_ID=989384966026-p4t3gman0v2j8klpuv3oqb0k8gn2otar.apps.googleusercontent.com
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
