@@ -9,8 +9,8 @@
 {
     <div class="alert bg-transparent text-success border-success mb-3" role="alert">
         <strong>Anketa ispunjena, hvala!</strong> 
-        Možete urediti 
-        <a style="color:inherit;text-decoration:underline;" asp-controller="Survey" asp-action="Question" asp-route-id="@NextID">svoje odgovore</a>, 
+        Možete urediti svoje 
+        <a style="color:inherit;text-decoration:underline;" asp-controller="Survey" asp-action="Question" asp-route-id="@NextID">odgovore</a>, 
         <a style="color:inherit;text-decoration:underline;" asp-area="Identity" asp-page="/Account/Manage/Index">osobne podatke</a> ili se 
         <form class="form-inline d-inline align-bottom" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button type="submit" class="btn btn-link d-inline" style="color:inherit;text-decoration:underline;padding:0;border:0;line-height:inherit;">odjaviti</button>.
