@@ -22,8 +22,11 @@ namespace CropSurvey.Web.Controllers
             return View();
         }
 
-        public IActionResult Start()
+        public async Task<IActionResult> StartAsync()
         {
+            var response = await GetUserRatingCount();
+            ViewData["completed"] = response / 2;
+
             return View();
         }
 
@@ -64,6 +67,7 @@ namespace CropSurvey.Web.Controllers
                 ValueA = swap ? RatingB?.Value ?? 0 : RatingA?.Value ?? 0,
                 ValueB = swap ? RatingA?.Value ?? 0 : RatingB?.Value ?? 0,
             };
+            ViewData["is1x1"] = is1x1;
 
             return View(result);
         }

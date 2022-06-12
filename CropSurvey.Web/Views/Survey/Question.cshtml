@@ -2,11 +2,17 @@
 @{
 	ViewData["Title"] = "Anketa";
 	Layout = "_AppLayout";
+	var is1x1 = (bool)ViewData["is1x1"];
 	var PrevID = @Model.QuestionID - 1;
 	var NextID = @Model.QuestionID + 1;
 }
 
 <h1 class="h2 ls-tight mb-1">Pitanje @Model.QuestionID/30</h1>
+<p class="d-inline me-2"> Omjer stranica izreza je @(is1x1 ? "1:1" : "16:9")</p>
+<a class="btn btn-sm btn-outline-secondary d-inline" asp-controller="Survey" asp-action="Start">
+    Upute
+</a>
+
 <form asp-action="Submit" method="post">
 	<input type="hidden" asp-for="QuestionID" value=@Model.QuestionID />
 	<input type="hidden" asp-for="Original" value=@Model.Original />
