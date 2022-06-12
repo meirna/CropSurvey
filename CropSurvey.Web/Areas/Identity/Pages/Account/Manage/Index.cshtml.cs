@@ -75,9 +75,11 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
 
             public Gender? Gender { get; set; }
 
-            public int? KnowledgeLevelID { get; set; }
+            [Required(ErrorMessage = "Molimo odaberite razinu svojeg znanja o fotografiji.")]
+            [Range(1, 3, ErrorMessage = "Molimo odaberite razinu svojeg znanja o fotografiji.")]
+            public int KnowledgeLevelID { get; set; }
 
-            public KnowledgeLevel? KnowledgeLevel { get; set; }
+            public KnowledgeLevel KnowledgeLevel { get; set; }
         }
 
         private async Task LoadAsync(AppUser user)
@@ -93,7 +95,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
                 WantResults = user.WantResults ?? false,
                 GenderID = user.GenderID,
                 Gender = user.Gender,
-                KnowledgeLevelID = user.KnowledgeLevelID,
+                KnowledgeLevelID = user.KnowledgeLevelID ?? 0,
                 KnowledgeLevel = user.KnowledgeLevel,
             };
         }

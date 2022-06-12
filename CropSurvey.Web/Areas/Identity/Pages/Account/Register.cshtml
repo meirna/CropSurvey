@@ -2,12 +2,13 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
+    var KnowledgeLevels = ViewData["KnowledgeLevels"] as List<SelectListItem>;
 }
 
 <div class="px-5 py-5 p-lg-0 bg-surface-secondary">
     <div class="d-flex justify-content-center">
         <partial name="_LoginRegisterSidebar" />
-        <div class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg min-h-lg-screen d-flex flex-column justify-content-center py-lg-16 px-lg-20 position-relative h-screen">
+        <div class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg d-flex flex-column justify-content-center py-10 py-lg-16 px-lg-20 position-relative min-h-screen">
             <div class="row">
                 <div class="col-lg-10 col-md-9 col-xl-6 mx-auto ms-xl-0">
                     <a class="d-block h-10" asp-controller="Home" asp-action="Index">
@@ -53,6 +54,11 @@
                             <label class="form-label" asp-for="Input.ConfirmPassword">Ponovi lozinku</label>
                             <input class="form-control form-control-muted" asp-for="Input.ConfirmPassword" autocomplete="new-password">
                             <span class="text-danger" asp-validation-for="Input.ConfirmPassword"></span>
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label" asp-for="Input.KnowledgeLevelID">Moje znanje o fotografiji je:</label>
+                            <select asp-for="Input.KnowledgeLevelID" asp-items="KnowledgeLevels" class="form-control"></select>
+                            <span class="text-danger" asp-validation-for="Input.KnowledgeLevelID"></span>
                         </div>
                         <div>
                             <button class="btn btn-primary w-full" id="registerSubmit" type="submit">

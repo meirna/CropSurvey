@@ -18,11 +18,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CropSurvey.Model;
+using CropSurvey.Data;
+using CropSurvey.Web.Models;
 
 namespace CropSurvey.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class ExternalLoginModel : PageModel
+    public class ExternalLoginModel : PageModel, IUtil
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
@@ -30,13 +32,15 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AppUser> _emailStore;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly ApplicationDbContext _dbContext;
 
         public ExternalLoginModel(
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
             IUserStore<AppUser> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext dbContext)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -44,6 +48,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailSender = emailSender;
+            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -87,6 +92,11 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
 
             [Required]
             public string UserName { get; set; }
+
+            [Required(ErrorMessage = "Molimo odaberite razinu svojeg znanja o fotografiji.")]
+            public int KnowledgeLevelID { get; set; }
+
+            public KnowledgeLevel KnowledgeLevel { get; set; }
         }
 
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -130,6 +140,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
                 // If the user does not have an account, then ask the user to create an account.
                 ReturnUrl = returnUrl;
                 ProviderDisplayName = info.ProviderDisplayName;
+                ViewData["KnowledgeLevels"] = IUtil.GetKnowlegdeLevelDropdown(this._dbContext);
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
                     Input = new InputModel
@@ -161,6 +172,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
                 {
                     await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 }
+                user.KnowledgeLevelID = Input.KnowledgeLevelID;
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

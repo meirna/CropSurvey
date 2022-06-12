@@ -20,6 +20,7 @@
             <div class="mb-5">
                 <label class="form-label" asp-for="Input.KnowledgeLevelID">Moje znanje o fotografiji je:</label>
                 <select asp-for="Input.KnowledgeLevelID" asp-items="KnowledgeLevels" class="form-control"></select>
+                <span asp-validation-for="Input.KnowledgeLevelID" class="text-danger"></span>
             </div>
             <div class="mb-5">
                 <label class="form-label" asp-for="Input.Age">Dob</label>

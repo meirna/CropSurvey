@@ -2,6 +2,7 @@
 @model ExternalLoginModel
 @{
     ViewData["Title"] = "Register";
+    var KnowledgeLevels = ViewData["KnowledgeLevels"] as List<SelectListItem>;
 }
 
 <div class="px-5 py-5 p-lg-0 bg-surface-secondary">
@@ -41,6 +42,11 @@
                             <label class="form-label" asp-for="Input.UserName" autocomplete="username" aria-required="true">Korisničko ime</label>
                             <input class="form-control form-control-muted" asp-for="Input.UserName">
                             <span class="text-danger" asp-validation-for="Input.UserName"></span>
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label" asp-for="Input.KnowledgeLevelID">Moje znanje o fotografiji je:</label>
+                            <select asp-for="Input.KnowledgeLevelID" asp-items="KnowledgeLevels" class="form-control"></select>
+                            <span class="text-danger" asp-validation-for="Input.KnowledgeLevelID"></span>
                         </div>
                         <div>
                             <button class="btn btn-primary w-full" id="registerSubmit" type="submit">

@@ -10,7 +10,9 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using CropSurvey.Data;
 using CropSurvey.Model;
+using CropSurvey.Web.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,7 +24,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CropSurvey.Web.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+    public class RegisterModel : PageModel, IUtil
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
@@ -30,13 +32,15 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _dbContext;
 
         public RegisterModel(
             UserManager<AppUser> userManager,
             IUserStore<AppUser> userStore,
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +48,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -101,6 +106,11 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "Lozinka i ponovljena lozinka se ne podudaraju.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(ErrorMessage = "Molimo odaberite razinu svojeg znanja o fotografiji.")]
+            public int KnowledgeLevelID { get; set; }
+
+            public KnowledgeLevel KnowledgeLevel { get; set; }
         }
 
 
@@ -108,6 +118,7 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ViewData["KnowledgeLevels"] = IUtil.GetKnowlegdeLevelDropdown(this._dbContext);
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -123,6 +134,8 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account
                 {
                     await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 }
+                user.KnowledgeLevelID = Input.KnowledgeLevelID;
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
