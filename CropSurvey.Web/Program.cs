@@ -61,57 +61,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "o-projektu",
-    pattern: "o-projektu",
-    defaults: new { controller = "Home", action = "About" });
-app.MapControllerRoute(
-    name: "o-autoru",
-    pattern: "o-autoru",
-    defaults: new { controller = "Home", action = "AboutMe" });
-app.MapControllerRoute(
-    name: "anketa",
-    pattern: "anketa",
-    defaults: new { controller = "Survey", action = "Index" });
-app.MapControllerRoute(
-    name: "anketa/start",
-    pattern: "anketa/start",
-    defaults: new { controller = "Survey", action = "Start" });
-app.MapControllerRoute(
-    name: "anketa/pitanje",
-    pattern: "anketa/pitanje/{ID}",
-    defaults: new { controller = "Survey", action = "Question" });
-app.MapControllerRoute(
-    name: "anketa/submit",
-    pattern: "anketa/submit",
-    defaults: new { controller = "Survey", action = "Submit" });
-app.MapControllerRoute(
-    name: "anketa/kraj",
-    pattern: "anketa/kraj",
-    defaults: new { controller = "Survey", action = "Done" });
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "admin",
-    defaults: new { controller = "Admin", action = "Index" });
-app.MapControllerRoute(
-    name: "admin/detalji",
-    pattern: "detalji/{ID}",
-    defaults: new { controller = "Admin", action = "Details" });
-app.MapControllerRoute(
-    name: "admin/update-user",
-    pattern: "update-user",
-    defaults: new { controller = "Admin", action = "EditUser" });
-app.MapControllerRoute(
-    name: "admin/delete-user",
-    pattern: "delete-user/{ID}",
-    defaults: new { controller = "Admin", action = "DeleteUser", ID = "ID" });
-app.MapControllerRoute(
-    name: "admin/delete-rating",
-    pattern: "delete-rating/{ID}",
-    defaults: new { controller = "Admin", action = "DeleteRating", ID = "ID" });
-app.MapControllerRoute(
     name: "default",
-    pattern: "",
-    defaults: new { controller = "Home", action = "Index" });
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
