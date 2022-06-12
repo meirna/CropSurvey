@@ -31,7 +31,7 @@
     <script>
         const onDelete = (id) => {
 			$.ajax({
-				url: `/Admin/DeleteRating/${id}`,
+				url: `/delete-rating/${id}`,
 				method: "DELETE",
 			}).then(result => {
 				$(`#rating-${id}`).replaceWith(result)
