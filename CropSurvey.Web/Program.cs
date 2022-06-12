@@ -36,6 +36,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services
     .AddControllersWithViews()
     .AddRazorRuntimeCompilation();
+builder.WebHost.UseKestrel(option => option.AddServerHeader = false);
 
 var app = builder.Build();
 
