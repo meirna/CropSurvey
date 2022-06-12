@@ -8,6 +8,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using CropSurvey.Data;
 using CropSurvey.Model;
+using CropSurvey.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel : PageModel
+    public class IndexModel : PageModel, IUtil
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -106,8 +107,8 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
             }
 
             await LoadAsync(user);
-            FillGenderDropdown();
-            FillKnowledgeLevelDropdown();
+            ViewData["Genders"] = IUtil.GetGenderDropdown(this._dbContext);
+            ViewData["KnowledgeLevels"] = IUtil.GetKnowlegdeLevelDropdown(this._dbContext);
 
             return Page();
         }
@@ -141,40 +142,6 @@ namespace CropSurvey.Web.Areas.Identity.Pages.Account.Manage
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Promjene su uspješno spremljene.";
             return RedirectToPage();
-        }
-
-        private void FillGenderDropdown()
-        {
-            var selectItems = new List<SelectListItem>();
-
-            var listItem = new SelectListItem();
-            listItem.Text = "- odaberi -";
-            listItem.Value = "";
-            selectItems.Add(listItem);
-            foreach (var category in this._dbContext.Genders)
-            {
-                listItem = new SelectListItem(category.Name, category.ID.ToString());
-                selectItems.Add(listItem);
-            }
-
-            ViewData["Genders"] = selectItems;
-        }
-
-        private void FillKnowledgeLevelDropdown()
-        {
-            var selectItems = new List<SelectListItem>();
-
-            var listItem = new SelectListItem();
-            listItem.Text = "- odaberi -";
-            listItem.Value = "";
-            selectItems.Add(listItem);
-            foreach (var category in this._dbContext.KnowledgeLevels)
-            {
-                listItem = new SelectListItem(category.Name, category.ID.ToString());
-                selectItems.Add(listItem);
-            }
-
-            ViewData["KnowledgeLevels"] = selectItems;
         }
     }
 }

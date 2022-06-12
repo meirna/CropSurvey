@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CropSurvey.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class AdminController : Controller, IUtil
     {
         protected ApplicationDbContext _dbContext;
         private readonly UserManager<AppUser> _userManager;
@@ -35,8 +35,8 @@ namespace CropSurvey.Web.Controllers
                 .Where(u => u.Id == ID)
                 .Include(u => u.Ratings.OrderBy(r => r.CropID))
                 .FirstOrDefaultAsync();
-            this.FillGenderDropdown();
-            this.FillKnowledgeLevelDropdown();
+            ViewData["Genders"] = IUtil.GetGenderDropdown(this._dbContext);
+            ViewData["KnowledgeLevels"] = IUtil.GetKnowlegdeLevelDropdown(this._dbContext);
             if (ok == true)
                 ViewData["StatusMessage"] = "Promjene su uspješno spremljene.";
             else if (ok == false)
@@ -136,40 +136,6 @@ namespace CropSurvey.Web.Controllers
             }
 
             return responseUsers;
-        }
-
-        private void FillGenderDropdown()
-        {
-            var selectItems = new List<SelectListItem>();
-
-            var listItem = new SelectListItem();
-            listItem.Text = "- odaberi -";
-            listItem.Value = "";
-            selectItems.Add(listItem);
-            foreach (var category in this._dbContext.Genders)
-            {
-                listItem = new SelectListItem(category.Name, category.ID.ToString());
-                selectItems.Add(listItem);
-            }
-
-            ViewData["Genders"] = selectItems;
-        }
-
-        private void FillKnowledgeLevelDropdown()
-        {
-            var selectItems = new List<SelectListItem>();
-
-            var listItem = new SelectListItem();
-            listItem.Text = "- odaberi -";
-            listItem.Value = "";
-            selectItems.Add(listItem);
-            foreach (var category in this._dbContext.KnowledgeLevels)
-            {
-                listItem = new SelectListItem(category.Name, category.ID.ToString());
-                selectItems.Add(listItem);
-            }
-
-            ViewData["KnowledgeLevels"] = selectItems;
         }
     }
 }
