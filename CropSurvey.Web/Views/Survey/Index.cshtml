@@ -1,7 +1,8 @@
 ﻿@{
 	ViewData["Title"] = "Početna";
 	Layout = "_AppLayout";
-	var Completed = (int)ViewData["completed"];
+	var Completed = (int)ViewData["completedCount"];
+    var Total = (int)ViewData["totalCount"];
     var NextID = Completed+1;
 	var Percent = Math.Truncate((float)Completed / 30 * 100);
 }

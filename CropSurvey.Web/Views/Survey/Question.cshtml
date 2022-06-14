@@ -3,11 +3,12 @@
 	ViewData["Title"] = "Anketa";
 	Layout = "_AppLayout";
 	var is1x1 = (bool)ViewData["is1x1"];
+	var Total = (int)ViewData["totalCount"];
 	var PrevID = @Model.QuestionID - 1;
 	var NextID = @Model.QuestionID + 1;
 }
 
-<h1 class="h2 ls-tight mb-1">Pitanje @Model.QuestionID/30</h1>
+<h1 class="h2 ls-tight mb-1">Pitanje @Model.QuestionID/@Total</h1>
 <p class="d-inline me-2"> Omjer stranica izreza je @(is1x1 ? "1:1" : "16:9")</p>
 <a class="btn btn-sm btn-outline-secondary d-inline" asp-controller="Survey" asp-action="Start">
     Upute
@@ -79,7 +80,7 @@
 			</div>
 			<div class="col-12 col-lg-6 d-flex justify-content-end mb-3">
 				<button class="btn btn-sm btn-primary w-100 w-lg-auto" type="submit">
-					@(Model.QuestionID == 30 ? "Završi anketu" : "Iduće pitanje")
+					@(Model.QuestionID == Total ? "Završi anketu" : "Iduće pitanje")
 				</button>
 			</div>
 		} else

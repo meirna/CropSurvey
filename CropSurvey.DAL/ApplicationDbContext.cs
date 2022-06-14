@@ -28,12 +28,12 @@ namespace CropSurvey.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //this.SeedGenders(modelBuilder);
-            //this.SeedKnowledgeLevels(modelBuilder);
-            //this.SeedPhotoCategories(modelBuilder);
-            //this.SeedPhotos(modelBuilder);
-            //this.SeedCrops(modelBuilder);
-            //this.SeedRoles(modelBuilder);
+            this.SeedGenders(modelBuilder);
+            this.SeedKnowledgeLevels(modelBuilder);
+            this.SeedPhotoCategories(modelBuilder);
+            this.SeedPhotos(modelBuilder);
+            this.SeedCrops(modelBuilder);
+            this.SeedRoles(modelBuilder);
         }
 
         private void SeedGenders(ModelBuilder modelBuilder)
@@ -52,9 +52,7 @@ namespace CropSurvey.Data
 
         private void SeedPhotoCategories(ModelBuilder modelBuilder)
         {
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(currentDirectory, "..", "..", "..", "..", "CropSurvey.DAL", "Data", "photos.csv");
-            using (var reader = new StreamReader(path))
+            using (var reader = new StreamReader((@"..\CropSurvey.DAL\Data\categories.csv")))
             {
                 var header = reader.ReadLine();
                 while (!reader.EndOfStream)

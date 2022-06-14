@@ -26,5 +26,22 @@ namespace CropSurvey.Web.Controllers
                 .Where(r => r.UserID == this.UserID)
                 .CountAsync();
         }
+
+        protected async Task<int> GetPhotosCount()
+        {
+            return await this._dbContext
+                .Photos!
+                .CountAsync();
+        }
+
+        protected async Task<int> GetCompletedQuestionsCount()
+        {
+            return await GetUserRatingCount() / 2;
+        }
+
+        protected async Task<int> GetTotalQuestionsCount()
+        {
+            return await GetPhotosCount() * 2;
+        }
     }
 }

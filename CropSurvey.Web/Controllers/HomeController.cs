@@ -19,8 +19,8 @@ namespace CropSurvey.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var response = await GetUserRatingCount();
-            ViewData["completed"] = response;
+            ViewData["completedCount"] = await GetCompletedQuestionsCount();
+            ViewData["totalCount"] = await GetTotalQuestionsCount();
 
             return View();
         }
@@ -32,16 +32,16 @@ namespace CropSurvey.Controllers
 
         public async Task<IActionResult> AboutAsync()
         {
-            var response = await GetUserRatingCount();
-            ViewData["completed"] = response;
+            ViewData["completedCount"] = await GetCompletedQuestionsCount();
+            ViewData["totalCount"] = await GetTotalQuestionsCount();
 
             return View();
         }
 
         public async Task<IActionResult> AboutMeAsync()
         {
-            var response = await GetUserRatingCount();
-            ViewData["completed"] = response;
+            ViewData["completedCount"] = await GetCompletedQuestionsCount();
+            ViewData["totalCount"] = await GetTotalQuestionsCount();
 
             return View();
         }

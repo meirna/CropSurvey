@@ -2,9 +2,10 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 @{
-    var completed = (int)ViewData["completed"];
+	var Completed = (int)ViewData["completedCount"];
+    var Total = (int)ViewData["totalCount"];
 }
 
 <a class="btn btn-lg btn-primary shadow-sm mx-2 px-lg-8" asp-controller="Survey" asp-action="Index">
-    @(completed == 60 ? "Uredi anketu" : completed == 0 ? "Ispuni anketu" : "Nastavi anketu")
+    @(Completed == Total ? "Uredi anketu" : Completed == 0 ? "Ispuni anketu" : "Nastavi anketu")
 </a>

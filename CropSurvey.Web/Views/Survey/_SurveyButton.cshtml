@@ -1,5 +1,6 @@
 ﻿@{
-	var Completed = (int)ViewData["completed"];
+	var Completed = (int)ViewData["completedCount"];
+    var Total = (int)ViewData["totalCount"];
     var NextID = Completed+1;
 }
 
@@ -11,6 +12,6 @@
 } else
 {
     <a class="btn btn-sm btn-primary" asp-controller="Survey" asp-action="Question" asp-route-id="@NextID">
-        @(Completed == 30 ? "Uredi anketu" : "Nastavi anketu")
+        @(Completed == Total ? "Uredi anketu" : "Nastavi anketu")
     </a>
 }
